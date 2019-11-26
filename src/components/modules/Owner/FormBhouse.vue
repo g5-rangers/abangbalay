@@ -11,13 +11,19 @@
         <v-divider class="mx-4"></v-divider>
         <v-card-text>
           <div>
-            <v-text-field label="Name of your boarding house"></v-text-field>
+            <v-text-field v-model="bhouseName" label="Name of your boarding house"></v-text-field>
             <v-text-field
+              v-model="bhouseAddress"
               label="Property address"
               hint="Ex. Rosillos St. Nasipit Rd. Talamban, Cebu"
             ></v-text-field>
-            <v-select v-model="select" :items="items" label="Number of occupants" required></v-select>
-            <v-text-field type="number" label="Monthly payment"></v-text-field>
+            <v-select
+              v-model="selectNumberOccupants"
+              :items="items"
+              label="Number of occupants"
+              required
+            ></v-select>
+            <v-text-field v-model="monthlyPayAmount" type="number" label="Monthly payment"></v-text-field>
             <v-container fluid id="radios">
               <v-radio-group v-model="column" column>
                 <v-label>Freebies</v-label>
@@ -29,8 +35,12 @@
           </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="deep-purple accent-4" text @click="upload"><v-icon medium>mdi-arrow-up-bold-box-outline</v-icon>Done</v-btn>
-          <v-btn color="deep-purple accent-4" text @click="dialog = false"><v-icon medium>mdi-close-outline</v-icon>Close</v-btn>
+          <v-btn color="deep-purple accent-4" text @click="upload">
+            <v-icon medium>mdi-arrow-up-bold-box-outline</v-icon>Done
+          </v-btn>
+          <v-btn color="deep-purple accent-4" text @click="dialog = false">
+            <v-icon medium>mdi-close-outline</v-icon>Close
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -56,16 +66,30 @@ export default {
     ImageUpload
   },
   data: () => ({
+    bhouseName: null,
+    bhouseAddress: null,
+    monthlyPayAmount: null,
+    column: null,
+    selectNumberOccupants: null,
     dialog: false,
     loading: false,
-    select: null,
     items: ["2", "3", "4", "5", "6"]
   }),
   methods: {
     upload() {
-      this.loading = true;
-      setTimeout(() => (this.loading = false), 2000);
-      setTimeout(() => (this.dialog = false), 2000);
+      if (
+        this.bhouseName == null ||
+        this.bhouseAddress == null ||
+        this.monthlyPayAmount == null ||
+        this.column == null ||
+        this.selectNumberOccupants == null
+      ) {
+        this.dialog = true
+      } else {
+        this.loading = true;
+        setTimeout(() => (this.loading = false), 2000);
+        setTimeout(() => (this.dialog = false), 2000);
+      }
     }
   }
 };

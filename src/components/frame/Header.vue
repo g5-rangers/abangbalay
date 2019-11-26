@@ -21,6 +21,7 @@
           temporary
           height="1000000"
           left
+          :z-index="zIndex"
         >
         <v-list nav dense>
         <v-list-item-group
@@ -86,6 +87,7 @@ export default {
       auth: AUTH,
       drawer: false,
       group: null,
+      zIndex: 10,
       items: [
         { icon: "mdi-view-dashboard", title: "Dashboard", link: "/dashboard" },
         { icon: "mdi-account", title: "Account", link: "/account" },

@@ -141,14 +141,6 @@
 import axios from 'axios';
 import AUTH from "services/auth";
 export default {
-  // data() {
-  // return {
-  // auth: AUTH,
-  // overlay: false,
-  // email: null,
-  // password: null
-  // };
-  // },
   data: () => ({
     auth: AUTH,
     overlay: false,

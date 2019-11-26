@@ -40,5 +40,6 @@ export default {
             tokenRequired: false
         }
     }
+    
     ]
 }

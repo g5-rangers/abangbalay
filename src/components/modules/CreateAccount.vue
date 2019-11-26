@@ -40,7 +40,7 @@
                 type="submit"
                 id="submit_user"
                 class="btn btn-primary btn-lg btn-block login-btn"
-                @click="submit"
+                @click="createAccount"
               >Create</button>
             </div>
             <center>
@@ -138,14 +138,14 @@
 </style>
 
 <script>
-// import AUTH from "services/auth";
+import AUTH from "services/auth";
 import axios from "axios";
 
 export default {
   data: () => ({
     list_reg: [],
     // auth: AUTH,
-    email: null,
+    email: "",
     password: "",
     valid: true,
     value: true,
@@ -165,13 +165,10 @@ export default {
     }
   }),
   methods: {
-    submit(e) {
+    createAccount(e) {
       e.preventDefault();
-      this.$route.push("/dashboard");
-      // let user = AUTH.register(this.email, this.password);
-      // sessionStorage.setItem("Email", this.email);
-      // sessionStorage.setItem("Password", this.password);
-      // AUTH.setUser(user);
+      let user = AUTH.register(this.email, this.password);
+      AUTH.setUser(user);
       // this.$swal.fire("Welcome, You are now Logged in", "success");
       axios
         .post("http://localhost:3000/register", {

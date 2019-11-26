@@ -11,10 +11,13 @@
           >
             <v-card-title v-text="card.title"></v-card-title>
           </v-img>
-            <v-card-text>
-                <h4>Boarding House Description</h4>
-            </v-card-text>
-            <v-spacer></v-spacer>
+          <v-card-text>
+            <ul>
+              <li v-for="bhouseProperty in bhouseProperties" :key="bhouseProperty">
+              </li>
+            </ul>
+          </v-card-text>
+          <v-spacer></v-spacer>
         </v-card>
       </v-col>
     </v-row>
@@ -23,26 +26,33 @@
 
 <script>
 export default {
-  data: () => ({
-    cards: [
-      {
-        title: "Carmelites Dormitory",
-        src:
-          "https://www.passerellesnumeriques.org/wp-content/uploads/2018/07/IMG_20180419_144038.png",
-        flex: 4
-      },
-      {
-        title: "Indian Residence",
-        src: "https://www.affordablecebu.com/_bd/830/63210760.jpg",
-        flex: 4
-      },
-      {
-        title: "Madam French Dormitory",
-        src: "https://www.mybenta.com/img/151179481844714405.jpg",
-        flex: 4
-      },
-      
-    ]
-  })
+  props: {
+    bhouseProperties: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      cards: [
+        {
+          title: "Carmelites Dormitory",
+          src:
+            "https://www.passerellesnumeriques.org/wp-content/uploads/2018/07/IMG_20180419_144038.png",
+          flex: 4
+        },
+        {
+          title: "Indian Residence",
+          src: "https://www.affordablecebu.com/_bd/830/63210760.jpg",
+          flex: 4
+        },
+        {
+          title: "Madam French Dormitory",
+          src: "https://www.mybenta.com/img/151179481844714405.jpg",
+          flex: 4
+        }
+      ]
+    };
+  }
 };
 </script>
