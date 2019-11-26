@@ -7,11 +7,12 @@
             <img
               src="https://icon-library.net/images/avatar-icon-png/avatar-icon-png-8.jpg"
               alt="Avatar"
-            >
+            />
           </div>
           <h4 class="modal-title">Create account</h4>
         </div>
         <div class="modal-body">
+
           <v-text-field
             outlined
             autocomplete="current-email"
@@ -49,9 +50,6 @@
           </div>
         </div>
       </div>
-      <!-- <v-overlay :value="overlay">
- <v-progress-circular indeterminate size="64"></v-progress-circular>
-      </v-overlay>-->
     </div>
   </div>
 </template>
@@ -141,24 +139,9 @@
 
 <script>
 // import AUTH from "services/auth";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
-  // data() {
-  // return {
-  // auth: AUTH,
-  // email: null,
-  // password: null,
-  // emailRules: [
-  // v => !!v || "E-mail is required",
-  // v => /.+@.+/.test(v) || "E-mail must be valid"
-  // ],
-  // passwordRules: [
-  // v => !!v || "Password is Required",
-  // v => v.length >= 8 || "Password must be atleast 8 characters"
-  // ]
-  // };
-  // },
   data: () => ({
     list_reg: [],
     // auth: AUTH,
@@ -184,22 +167,29 @@ export default {
   methods: {
     submit(e) {
       e.preventDefault();
+      this.$route.push("/dashboard");
       // let user = AUTH.register(this.email, this.password);
       // sessionStorage.setItem("Email", this.email);
       // sessionStorage.setItem("Password", this.password);
       // AUTH.setUser(user);
       // this.$swal.fire("Welcome, You are now Logged in", "success");
-      axios.post("http://localhost:3000/register",  {email : this.email , password : this.password }).then(res => {
-        if(res.data.register){
-          this.list_reg.push(res.data);
-          console.log(this.list_reg);
-          this.$route.push('/dashboard');
-        }else{
-          this.$swal.fire("Try Again")
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+      axios
+        .post("http://localhost:3000/register", {
+          email: this.email,
+          password: this.password
+        })
+        .then(res => {
+          if (res.data.register) {
+            this.list_reg.push(res.data);
+            console.log(this.list_reg);
+            this.$route.push("/dashboard");
+          } else {
+            this.$swal.fire("Try Again");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };

@@ -1,23 +1,21 @@
 <template>
   <div class="dashboard">
-    <div>
-      <CurrentBhouse></CurrentBhouse>
-    </div>
+    <Buttons />
+    <MyBhouse />
   </div>
 </template>
 
 <style scoped>
-
-
 </style>
 
 <script>
-import CurrentBhouse from "components/modules/Owner/CurrentBhouse.vue";
-
+import Buttons from "components/modules/Owner/Buttons.vue";
+import MyBhouse from "components/modules/Owner/MyBhouse.vue";
 export default {
   name: "dashboard",
   components: {
-    CurrentBhouse,
+    MyBhouse,
+    Buttons
   }
 };
 </script>

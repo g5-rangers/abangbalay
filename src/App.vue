@@ -26,11 +26,6 @@ export default {
 
 <style>
 #app {
-    background: white !important;
+  background: white !important;
 }
-
-html , body{
-  overflow-y: auto !important;
-}
-
 </style>

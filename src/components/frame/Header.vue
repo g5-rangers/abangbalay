@@ -46,13 +46,14 @@
       </v-list>
       </v-navigation-drawer>
       <v-toolbar-items >
-        <v-btn text medium id="items" @click="redirect('/login')" v-if="$route.name != 'dashboard'">Login</v-btn>
+        <v-btn text medium id="items" @click="redirect('/login')" v-if="$route.name != 'dashboard' || $route.name =='account' ">Login</v-btn>
         <v-divider
           class="mx-4"
           inset
-          vertical>
+          vertical
+          v-if="$route.name != 'dashboard' || $route.name =='account' ">
         </v-divider>
-        <v-btn text medium id="items" @click="redirect('/about')" v-if="$route.name != 'dashboard' ">About us</v-btn>
+        <v-btn text medium id="items" @click="redirect('/about')" v-if="$route.name != 'dashboard' || $route.name =='account' ">About us</v-btn>
       </v-toolbar-items>
       
     </v-toolbar>
