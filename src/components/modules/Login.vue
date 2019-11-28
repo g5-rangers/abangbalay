@@ -7,11 +7,11 @@
             <v-card class="elevation-12">
               <v-toolbar color="orange darken-2" dark flat>
                 <v-toolbar-title>Login</v-toolbar-title>
-                <v-spacer/>
+                <v-spacer />
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <br>
+                <v-form ref="loginForm">
+                  <br />
                   <v-text-field
                     outlined
                     autocomplete="current-email"
@@ -21,19 +21,16 @@
                     :rules="emailRules"
                     @input="_ => (email = _)"
                   ></v-text-field>
-
                   <v-text-field
                     outlined
-                    v-model="password"
-                    autocomplete="current-password"
-                    :value="userPassword"
+                    :value="password"
                     label="Enter password"
                     hint="Your password passed! Password rules are not meant to be broken!"
-                    :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                    :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
                     @click:append="() => (value = !value)"
                     :type="value ? 'password' : 'text'"
-                    :rules="[rules.password]"
-                    @input="_ => (userPassword = _)"
+                    :rules="[rules.rulePassword]"
+                    @input="_ => (password = _)"
                   ></v-text-field>
                 </v-form>
               </v-card-text>
@@ -44,7 +41,7 @@
                     <router-link to="/createaccount">Create account</router-link>
                   </center>
                 </div>
-                <v-spacer/>
+                <v-spacer />
                 <v-btn color="orange darken-2" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
@@ -63,7 +60,6 @@
 
 
 <script>
-
 import axios from "axios";
 import AUTH from "services/auth";
 
@@ -94,17 +90,19 @@ export default {
   },
   methods: {
     login(e) {
-      e.preventDefault();
-      let user = AUTH.login(this.email, this.password);
-      AUTH.setUser(user);
-      axios
-        .get("http://localhost:3000/user/login")
-        .then(res => {
-          (this.email = res.data), (this.password = res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.$refs.loginForm.validate()) {
+        e.preventDefault();
+        // let user = AUTH.login(this.email, this.password);
+        // AUTH.setUser(user);
+        axios
+          .get("http://localhost:3000/user/login")
+          .then(res => {
+            (this.email = res.data), (this.password = res.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     }
   }
 };

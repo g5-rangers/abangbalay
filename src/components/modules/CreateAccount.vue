@@ -7,11 +7,11 @@
             <v-card class="elevation-12">
               <v-toolbar color="orange darken-2" dark flat>
                 <v-toolbar-title>Create account</v-toolbar-title>
-                <v-spacer/>
+                <v-spacer />
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <br>
+                <v-form ref="regForm">
+                  <br />
                   <v-text-field
                     outlined
                     autocomplete="current-email"
@@ -25,7 +25,6 @@
                     outlined
                     :value="password"
                     label="Enter password"
-                    hint="Your password passed! Password rules are not meant to be broken!"
                     :append-icon="value ? 'mdi-eye-off' : 'mdi-eye'"
                     @click:append="() => (value = !value)"
                     :type="value ? 'password' : 'text'"
@@ -41,7 +40,7 @@
                     <router-link to="/login">Login</router-link>
                   </center>
                 </div>
-                <v-spacer/>
+                <v-spacer />
                 <v-btn color="orange darken-2" @click="createAccount">Next</v-btn>
               </v-card-actions>
             </v-card>
@@ -60,9 +59,9 @@
 
 
 <script>
-
 import axios from "axios";
-import AUTH from "services/auth";
+// import AUTH from "services/auth";
+import ROUTER from 'router'
 
 export default {
   name: "createaccount",
@@ -90,22 +89,28 @@ export default {
   },
   methods: {
     createAccount(e) {
-      e.preventDefault();
-      let user = AUTH.register(this.email, this.password);
-      AUTH.setUser(user);
-      axios
-        .post("http://localhost:3000/user/register", {
-          email: this.email,
-          password: this.password
-        })
-        .then(res => {
-          this.list_reg.push(res.data);
-          console.log(this.list_reg);
-          this.$route.push("/dashboard");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.$refs.regForm.validate()) {
+        e.preventDefault();
+        ROUTER.push('/dashboard')
+        // this.$route.push("/dashboard");
+        
+        // let user = AUTH.register(this.email, this.password);
+        // AUTH.setUser(user);
+        axios
+          .post("http://localhost:3000/user/register", {
+            email: this.email,
+            password: this.password
+          })
+          .then(res => {
+            this.list_reg.push(res.data);
+            console.log(this.list_reg);
+            
+            
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     }
   }
 };

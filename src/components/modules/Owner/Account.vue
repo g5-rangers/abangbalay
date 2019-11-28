@@ -7,8 +7,8 @@
       <v-card-title style="color:orange ; font-size: 25px">My Account</v-card-title>
       <v-card-text>
         <div>
-          <v-text-field value="jeanilyntancinco@gmail.com" label="Email address" readonly></v-text-field>
-          <v-text-field value="**********" label="Password" readonly></v-text-field>
+          <v-text-field v-model="email" value="jeanilyntancinco@gmail.com" label="Email address" readonly></v-text-field>
+          <v-text-field v-model="password" value="**********" label="Password" readonly></v-text-field>
         </div>
       </v-card-text>
       <v-card-actions>
@@ -31,12 +31,24 @@
 </style>
 
 <script>
+
+import axios from 'axios'
 export default {
   data: () => ({
     loading: false,
+    email: '',
+    password: '',
     select: null,
     items: ["Rooms for male", "Rooms for female", "Both"]
   }),
+  mounted() {
+    axios.get("http://localhost:3000/user/register").then(res => {
+      this.email = res.data,
+      this.password = res.data
+    }).catch(err => {
+      console.log(err)
+    })
+  },
   methods: {
     upload() {
       this.loading = true;

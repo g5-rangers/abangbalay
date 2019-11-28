@@ -32,7 +32,6 @@ export default {
   methods: {
     Upload() {
       console.log(this.imgs);
-      
     },
     handleFileUpload() {
       var x = [];

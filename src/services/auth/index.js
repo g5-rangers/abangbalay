@@ -52,7 +52,7 @@ export default {
     logout() {
         alert("You are now logged out.")
         this.user = null,
-        localStorage.clear("Email");
+            localStorage.clear("Email");
         localStorage.clear("Password");
         ROUTER.push('/login')
     }
