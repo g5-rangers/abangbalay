@@ -5,7 +5,6 @@
       v-if="$route.name =='dashboard' || $route.name =='account' "></v-app-bar-nav-icon>
       <v-toolbar-title>
         <v-img 
-          @click="redirect('/')"
           id="logo"
           :src="require('@/assets/images/MyLogo.png')"
           class="my-3"
@@ -47,14 +46,22 @@
       </v-list>
       </v-navigation-drawer>
       <v-toolbar-items >
-        <v-btn text medium id="items" @click="redirect('/login')" v-if="$route.name != 'dashboard' || $route.name =='account' ">Login</v-btn>
+        <v-btn text medium id="items" @click="logout" v-if="$route.name == 'dashboard' || $route.name == 'account' ">Logout</v-btn>
+        <v-btn text medium id="items" @click="redirect('/')" v-if="$route.name != 'dashboard' && $route.name !='account' ">Home</v-btn>
         <v-divider
           class="mx-4"
           inset
           vertical
-          v-if="$route.name != 'dashboard' || $route.name =='account' ">
+          v-if="$route.name != 'dashboard' && $route.name !='account' ">
         </v-divider>
-        <v-btn text medium id="items" @click="redirect('/about')" v-if="$route.name != 'dashboard' || $route.name =='account' ">About us</v-btn>
+        <v-btn text medium id="items" @click="redirect('/about')" v-if="$route.name != 'dashboard' && $route.name !='account' ">About us</v-btn>
+        <v-divider
+          class="mx-4"
+          inset
+          vertical
+          v-if="$route.name != 'dashboard' && $route.name !='account' ">
+        </v-divider>
+        <v-btn text medium id="items" @click="redirect('/login')" v-if="$route.name != 'dashboard' && $route.name !='account' ">Login</v-btn>
       </v-toolbar-items>
       
     </v-toolbar>
@@ -91,11 +98,9 @@ export default {
       items: [
         { icon: "mdi-view-dashboard", title: "Dashboard", link: "/dashboard" },
         { icon: "mdi-account", title: "Account", link: "/account" },
-        { icon: "mdi-mouse", title: "Logout", link: "/" },
       ]
     }
   },
-
   watch: {
     group() {
       this.drawer = false;
@@ -103,7 +108,11 @@ export default {
   },
   methods: {
       redirect(route){
-          ROUTER.push(route)  
+          ROUTER.push(route)
+      },
+      logout(e){
+        e.preventDefault()
+        AUTH.logout();
       }
   }
 }

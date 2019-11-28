@@ -36,7 +36,7 @@
         </v-card-text>
         <v-card-actions>
           <v-btn color="deep-purple accent-4" text @click="upload">
-            <v-icon medium>mdi-arrow-up-bold-box-outline</v-icon>Done
+            <v-icon medium>mdi-arrow-up-bold-box-outline</v-icon>Upload
           </v-btn>
           <v-btn color="deep-purple accent-4" text @click="dialog = false">
             <v-icon medium>mdi-close-outline</v-icon>Close

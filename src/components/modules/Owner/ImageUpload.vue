@@ -14,7 +14,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="handleFileUpload">Upload</v-btn>
+            <v-btn color="blue darken-1" text @click="handleFileUpload">Save</v-btn>
           </v-card-actions>
         </v-card-text>
       </v-card>
@@ -42,7 +42,7 @@ export default {
         });
       });
       console.log(x);
-      
+      this.dialog = false;
     },
     encode: async file => {
       let result_base64 = await new Promise(resolve => {

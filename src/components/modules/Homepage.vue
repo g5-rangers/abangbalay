@@ -33,8 +33,7 @@
         </v-col>
       </center>
     </v-card>
-
-    <Results v-for="i in 3 " :key="i" :Details="details"></Results>
+    <Results v-for="i in 3 " :key="i" :Details="details" ></Results>
   </div>
 </template>
 
