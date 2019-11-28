@@ -60,7 +60,7 @@
 
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import AUTH from "services/auth";
 
 export default {
@@ -92,16 +92,22 @@ export default {
     login(e) {
       if (this.$refs.loginForm.validate()) {
         e.preventDefault();
+        let email = this.email;
+        let password = this.password;
+        this.$store
+          .dispatch("loginAsync", { email, password })
+          .then(() => this.$router.push("/dashboard"))
+          .catch(err => console.log(err));
         // let user = AUTH.login(this.email, this.password);
         // AUTH.setUser(user);
-        axios
-          .get("http://localhost:3000/user/login")
-          .then(res => {
-            (this.email = res.data), (this.password = res.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        // axios
+        //   .get("http://localhost:3000/user/login")
+        //   .then(res => {
+        //     (this.email = res.data), (this.password = res.data);
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   });
       }
     }
   }

@@ -1,8 +1,9 @@
-import AUTH from 'services/auth'
+// import AUTH from 'services/auth'
+import store from '../store.js'
 
 let beforeEnter = (to, from, next) => {
     if(to.meta.tokenRequired === true){
-        if(AUTH.user != null){
+        if(store.getters.isLoggedIn){
             next()
         }else{
             next({ path: '/login'})
