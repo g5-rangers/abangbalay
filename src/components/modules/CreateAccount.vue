@@ -96,27 +96,12 @@ export default {
           email: this.email
         };
         this.$store
-          .dispatch("registerAsync", { data })
-          .then(() => this.$router.push("/login"))
+          .dispatch("registerAsync", data)
+          .then(
+            () => this.$router.push("/login"),
+            alert("Youre now registered ")
+          )
           .catch(err => console.log(err));
-        // ROUTER.push('/dashboard')
-        // // this.$route.push("/dashboard");
-
-        // // let user = AUTH.register(this.email, this.password);
-        // // AUTH.setUser(user);
-        // axios
-        //   .post("http://localhost:3000/user/register", {
-        //     email: this.email,
-        //     password: this.password
-        //   })
-        //   .then(res => {
-        //     this.list_reg.push(res.data);
-        //     console.log(this.list_reg);
-
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //   });
       }
     }
   }

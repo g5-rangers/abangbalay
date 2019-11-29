@@ -92,22 +92,18 @@ export default {
     login(e) {
       if (this.$refs.loginForm.validate()) {
         e.preventDefault();
-        let email = this.email;
-        let password = this.password;
+        let data = {
+          password: this.password,
+          email: this.email
+        };
         this.$store
-          .dispatch("loginAsync", { email, password })
-          .then(() => this.$router.push("/dashboard"))
+          .dispatch("loginAsync", data)
+          .then(() => {
+            console.log(this.$router)
+            this.$router.push("/dashboard");
+            alert("You're now logged in.");
+          })
           .catch(err => console.log(err));
-        // let user = AUTH.login(this.email, this.password);
-        // AUTH.setUser(user);
-        // axios
-        //   .get("http://localhost:3000/user/login")
-        //   .then(res => {
-        //     (this.email = res.data), (this.password = res.data);
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //   });
       }
     }
   }
