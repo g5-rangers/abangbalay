@@ -33,6 +33,7 @@ export default new Vuex.Store({
 				commit('auth_request')
 				axios({ url: 'http://localhost:3000/user/login', data: { data: user }, method: 'POST' })
 					.then(resp => {
+						alert("You're now logged in.")
 						const token = resp.data.token
 						const user = resp.data.user
 						console.log(resp)
@@ -56,15 +57,20 @@ export default new Vuex.Store({
 				commit('auth_request')
 				axios({ url: 'http://localhost:3000/user/register', data: user, method: 'POST' })
 					.then(resp => {
-						const token = resp.data.token
-						const user = resp.data.user
-						console.log(resp)
-						if (token) {
-							localStorage.setItem('jwt', token)
+						if (resp.data.message == "successfully registered") {
+							alert("Youre now registered!")
+							const token = resp.data.token
+							const user = resp.data.user
+							console.log(resp)
+							if (token) {
+								localStorage.setItem('jwt', token)
+							}
+							axios.defaults.headers.common['Authorization'] = token
+							commit('auth_success', token, user)
+							resolve(resp)
+						}else{
+							alert("Failed to create an account")
 						}
-						axios.defaults.headers.common['Authorization'] = token
-						commit('auth_success', token, user)
-						resolve(resp)
 					})
 					.catch(err => {
 						console.log(err)
