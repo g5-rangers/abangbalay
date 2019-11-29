@@ -3,27 +3,31 @@
     <v-btn small fab color="indigo" dark @click.stop="dialog = true" class="addBtn">
       <v-icon dark>mdi-plus</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" max-width="350px">
+    <v-dialog v-model="dialog" max-width="350px" >
       <v-card :loading="loading" max-width="350px">
-        <div id="container">
+        <!-- <div id="container">
           <ImageUpload id="uploadicon"></ImageUpload>
-        </div>
+        </div>-->
         <v-divider class="mx-4"></v-divider>
+        <br>
         <v-card-text>
           <div>
-            <v-text-field v-model="bhouseName" label="Name of your boarding house"></v-text-field>
+            <v-text-field  outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
             <v-text-field
+             outlined dense
               v-model="bhouseAddress"
               label="Property address"
               hint="Ex. Rosillos St. Nasipit Rd. Talamban, Cebu"
             ></v-text-field>
             <v-select
+             outlined dense
               v-model="selectNumberOccupants"
               :items="items"
               label="Number of occupants"
               required
             ></v-select>
-            <v-text-field v-model="monthlyPayAmount" type="number" label="Monthly payment"></v-text-field>
+            <v-text-field  outlined dense v-model="monthlyPayAmount" type="number" label="Monthly payment"></v-text-field>
+            <v-file-input outlined dense v-model="imgs" multiple label="Upload Images" prepend-icon="mdi-camera"></v-file-input>
             <v-container fluid id="radios">
               <v-radio-group v-model="column" column>
                 <v-label>Freebies</v-label>
@@ -48,43 +52,69 @@
 </template>
 
 <style scoped>
+
+
 #radios {
   margin-top: -8% !important;
   margin-bottom: -10% !important;
 }
 
-#container {
-  padding: 15% !important;
-}
+
 </style>
 
 <script>
-import ImageUpload from "components/modules/Owner/ImageUpload.vue";
+// import ImageUpload from "components/modules/Owner/ImageUpload.vue";
 
 export default {
-  components: {
-    ImageUpload
+  // components: {
+  //   ImageUpload
+  // },
+  name: "bhouseform",
+  data() {
+    return {
+      bhouseName: null,
+      bhouseAddress: null,
+      monthlyPayAmount: null,
+      column: null,
+      selectNumberOccupants: null,
+      dialog: false,
+      loading: false,
+      items: ["2", "3", "4", "5", "6"],
+      imgs: []
+    };
   },
-  data: () => ({
-    bhouseName: null,
-    bhouseAddress: null,
-    monthlyPayAmount: null,
-    column: null,
-    selectNumberOccupants: null,
-    dialog: false,
-    loading: false,
-    items: ["2", "3", "4", "5", "6"]
-  }),
   methods: {
+    handleFileUpload() {
+      var x = [];
+      this.imgs.map(img => {
+        this.encode(img).then(res => {
+          x.push(res);
+        });
+      });
+      console.log(x);
+      this.dialog = false;
+    },
+    encode: async file => {
+      let result_base64 = await new Promise(resolve => {
+        let fileReader = new FileReader();
+        fileReader.onload = e => {
+          console.log(typeof e);
+          resolve(fileReader.result);
+        };
+        fileReader.readAsDataURL(file);
+      });
+      return result_base64;
+    },
     upload() {
       if (
+        this.imgs == null ||
         this.bhouseName == null ||
         this.bhouseAddress == null ||
         this.monthlyPayAmount == null ||
         this.column == null ||
         this.selectNumberOccupants == null
       ) {
-        this.dialog = true
+        this.dialog = true;
       } else {
         this.loading = true;
         setTimeout(() => (this.loading = false), 2000);

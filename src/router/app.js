@@ -29,7 +29,7 @@ export default {
         name: 'dashboard',
         component: resolve => require(['components/modules/Owner/Dashboard.vue'], resolve),
         meta: {
-            tokenRequired: true
+            tokenRequired: false
         }
     },
     {
@@ -37,7 +37,7 @@ export default {
         name: 'account',
         component: resolve => require(['components/modules/Owner/Account.vue'], resolve),
         meta: {
-            tokenRequired: true
+            tokenRequired: false
         }
     }
     

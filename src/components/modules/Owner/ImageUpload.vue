@@ -28,7 +28,7 @@ export default {
   data: () => ({
     dialog: false,
     imgs: []
-  }),
+  }), 
   methods: {
     Upload() {
       console.log(this.imgs);
