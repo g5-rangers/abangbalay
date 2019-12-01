@@ -1,58 +1,43 @@
   <template>
-  <v-container fluid>
-    <v-row dense>
-      <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
-        <v-card>
-          <v-img
-            :src="card.src"
-            class="white--text align-end"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="250px"
-          >
-            <v-card-title v-text="card.title"></v-card-title>
-          </v-img>
-          <v-card-text>
-            <ul>
-              <li v-for="bhouseProperty in bhouseProperties" :key="bhouseProperty">
-              </li>
-            </ul>
-          </v-card-text>
-          <v-spacer></v-spacer>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <v-card class="bhouse_dd">
+    <v-img
+      :src="bhouseProperties.image[0]"
+      class="white--text align-end"
+      gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+      height="250px"
+    >
+    <BhouseImages :images="bhouseProperties.image" v-if="bhouseProperties.image.length >1"/>
+      <v-card-title v-text="bhouseProperties.name"></v-card-title>
+    </v-img>
+    <v-card-text>
+      <section>
+        <h6>Address: {{bhouseProperties.address}}</h6>
+        <h6>No. of occupants: {{bhouseProperties.occupants}}</h6>
+        <h6>Monthly payment: {{bhouseProperties.payment}}</h6>
+        <h6>Freebies: {{bhouseProperties.freebies}}</h6>
+      </section>
+      
+    </v-card-text>
+    <v-spacer></v-spacer>
+  </v-card>
 </template>
+
+<style scoped>
+
+.bhouse_dd{
+  margin-top: 10% !important;
+}
+</style>
 
 <script>
 export default {
   props: {
     bhouseProperties: {
-      type: Array,
-      required: true
+      type: Object
     }
   },
-  data() {
-    return {
-      cards: [
-        {
-          title: "Carmelites Dormitory",
-          src:
-            "https://www.passerellesnumeriques.org/wp-content/uploads/2018/07/IMG_20180419_144038.png",
-          flex: 4
-        },
-        {
-          title: "Indian Residence",
-          src: "https://www.affordablecebu.com/_bd/830/63210760.jpg",
-          flex: 4
-        },
-        {
-          title: "Madam French Dormitory",
-          src: "https://www.mybenta.com/img/151179481844714405.jpg",
-          flex: 4
-        }
-      ]
-    };
+  components: {
+    BhouseImages: () => import("components/modules/BhouseImages.vue")
   }
 };
 </script>

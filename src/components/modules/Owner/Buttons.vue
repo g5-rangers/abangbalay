@@ -1,5 +1,5 @@
 <template>
-  <v-card id="create">
+  <div id="create">
     <v-speed-dial
       v-model="fab"
       :top="top"
@@ -11,12 +11,12 @@
       :transition="transition"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" color="blue darken-2" dark fab>
+        <v-btn id="btn" v-model="fab" color="blue darken-2" dark fab>
           <v-icon v-if="fab">mdi-close</v-icon>
           <v-icon v-else>mdi-account-circle</v-icon>
         </v-btn>
       </template>
-      <FormBhouse></FormBhouse>
+      <FormBhouse @uploaded="updateDashboard"></FormBhouse>
       <v-btn fab dark small color="green">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -24,18 +24,16 @@
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-speed-dial>
-  </v-card>
+  </div>
 </template>
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 #create .v-speed-dial {
   position: absolute !important;
 }
-#create .v-btn--floating {
-  position: absolute !important;
-}
-#create {
-  margin-top: 5% !important;
+
+#btn {
+ margin-top: 100% !important;
 }
 </style>
 
@@ -52,9 +50,9 @@ export default {
     fling: false,
     hover: false,
     tabs: null,
-    top: false,
+    top: true,
     right: true,
-    bottom: true,
+    bottom: false,
     left: false,
     transition: "slide-y-reverse-transition"
   }),
@@ -86,6 +84,11 @@ export default {
     },
     left(val) {
       this.right = !val;
+    }
+  },
+  methods: {
+    updateDashboard(item) {
+      this.$emit("uploaded", item);
     }
   }
 };

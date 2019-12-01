@@ -3,7 +3,7 @@
     <v-btn small fab color="indigo" dark @click.stop="dialog = true" class="addBtn">
       <v-icon dark>mdi-plus</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" max-width="350px" >
+    <v-dialog v-model="dialog" max-width="350px">
       <v-card :loading="loading" max-width="350px">
         <!-- <div id="container">
           <ImageUpload id="uploadicon"></ImageUpload>
@@ -12,24 +12,40 @@
         <br>
         <v-card-text>
           <div>
-            <v-text-field  outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
+            <v-text-field outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
             <v-text-field
-             outlined dense
+              outlined
+              dense
               v-model="bhouseAddress"
               label="Property address"
               hint="Ex. Rosillos St. Nasipit Rd. Talamban, Cebu"
             ></v-text-field>
             <v-select
-             outlined dense
-              v-model="selectNumberOccupants"
+              outlined
+              dense
+              v-model="occupants"
               :items="items"
               label="Number of occupants"
               required
             ></v-select>
-            <v-text-field  outlined dense v-model="monthlyPayAmount" type="number" label="Monthly payment"></v-text-field>
-            <v-file-input outlined dense v-model="imgs" multiple label="Upload Images" prepend-icon="mdi-camera"></v-file-input>
+            <v-text-field
+              outlined
+              dense
+              v-model="monthlyPayAmount"
+              type="number"
+              label="Monthly payment"
+            ></v-text-field>
+            <v-file-input
+              outlined
+              dense
+              v-model="imgs"
+              multiple
+              label="Upload Images"
+              prepend-icon="mdi-camera"
+              accept="/*image"
+            ></v-file-input>
             <v-container fluid id="radios">
-              <v-radio-group v-model="column" column>
+              <v-radio-group v-model="freebies" column>
                 <v-label>Freebies</v-label>
                 <v-radio label="Free water" value="Free water"></v-radio>
                 <v-radio label="Free electricity" value="Free electricity"></v-radio>
@@ -39,7 +55,7 @@
           </div>
         </v-card-text>
         <v-card-actions>
-          <v-btn color="deep-purple accent-4" text @click="upload">
+          <v-btn color="deep-purple accent-4" text @click="uploadFile">
             <v-icon medium>mdi-arrow-up-bold-box-outline</v-icon>Upload
           </v-btn>
           <v-btn color="deep-purple accent-4" text @click="dialog = false">
@@ -52,31 +68,24 @@
 </template>
 
 <style scoped>
-
-
 #radios {
   margin-top: -8% !important;
   margin-bottom: -10% !important;
 }
-
-
 </style>
 
 <script>
-// import ImageUpload from "components/modules/Owner/ImageUpload.vue";
+import axios from "axios";
 
 export default {
-  // components: {
-  //   ImageUpload
-  // },
   name: "bhouseform",
   data() {
     return {
       bhouseName: null,
       bhouseAddress: null,
       monthlyPayAmount: null,
-      column: null,
-      selectNumberOccupants: null,
+      freebies: null,
+      occupants: null,
       dialog: false,
       loading: false,
       items: ["2", "3", "4", "5", "6"],
@@ -84,41 +93,49 @@ export default {
     };
   },
   methods: {
-    handleFileUpload() {
-      var x = [];
-      this.imgs.map(img => {
-        this.encode(img).then(res => {
-          x.push(res);
-        });
-      });
-      console.log(x);
-      this.dialog = false;
-    },
-    encode: async file => {
-      let result_base64 = await new Promise(resolve => {
-        let fileReader = new FileReader();
-        fileReader.onload = e => {
-          console.log(typeof e);
-          resolve(fileReader.result);
-        };
-        fileReader.readAsDataURL(file);
-      });
-      return result_base64;
-    },
-    upload() {
+    uploadFile: function() {
       if (
-        this.imgs == null ||
         this.bhouseName == null ||
         this.bhouseAddress == null ||
         this.monthlyPayAmount == null ||
-        this.column == null ||
-        this.selectNumberOccupants == null
+        this.freebies == null ||
+        this.occupants == null
       ) {
         this.dialog = true;
+        alert("empty");
       } else {
         this.loading = true;
-        setTimeout(() => (this.loading = false), 2000);
-        setTimeout(() => (this.dialog = false), 2000);
+        var details = {
+          name: this.bhouseName,
+          address: this.bhouseAddress,
+          payment: this.monthlyPayAmount,
+          freebies: this.freebies,
+          occupants: this.occupants
+        };
+
+        let formData = new FormData();
+        for (let i = 0; i < this.imgs.length; i++) {
+          formData.append("img", this.imgs[i]);
+        }
+        formData.append("details", JSON.stringify(details));
+
+        axios
+          .post(`http://localhost:4000/owner/uploadMultiple`, formData)
+          .then(res => {
+            setTimeout(() => (this.loading = false), 2000);
+            setTimeout(() => (this.dialog = false), 2000);
+            console.log(res.data);
+            this.$emit("uploaded", res.data);
+            this.bhouseName = null;
+            this.bhouseAddress = null;
+            this.monthlyPayAmount = null;
+            this.freebies = null;
+            this.occupants = null;
+            this.imgs = null;
+          })
+          .catch(error => {
+            console.error("file upload failed", error);
+          });
       }
     }
   }
