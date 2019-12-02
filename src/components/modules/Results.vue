@@ -8,8 +8,9 @@
               id="img"
               class="white--text align-end"
               height="200px"
-              src="https://www.passerellesnumeriques.org/wp-content/uploads/2018/07/IMG_20180419_144038.png"
-            ><images></images>
+              :src="Details.image[0]"
+            >
+            <Images :images="Details.image" v-if="Details.image.length >1"/>
               <v-card-actions>
                 <Map></Map>
               </v-card-actions>
@@ -30,14 +31,12 @@
           </v-col>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-col cols="6" sm="4">
-            <v-card-title v-model="bHouseName">Carmelites Dormitory</v-card-title>
-            <v-card-subtitle class="pb-0" v-model="bHouseAddress">Rosellos St. Nasipit, Talamban, Cebu City.</v-card-subtitle>
+            <v-card-title v-model="bHouseName">{{Details.name}}</v-card-title>
+            <v-card-subtitle class="pb-0" v-model="bHouseAddress">{{Details.address}}</v-card-subtitle>
             <v-card-text class="text--primary">
-              <div>• 5 rooms for male</div>
-              <div>• 5 rooms for female</div>
-              <div>• Free water and electricity</div>
-              <div>• Fans and double deck</div>
-              <div>• Lady guard at night</div>
+              <br>
+              <div>■ {{Details.occupants}} occupants per room</div>
+              <div>■ {{Details.freebies}}</div>
             </v-card-text>
           </v-col>
           <v-divider class="mx-4" inset vertical></v-divider>
@@ -46,10 +45,9 @@
               <v-card-text class="text-success">
                 <br />
                 <br />
-                <h3>₱ 1,500 monthly</h3>
+                <h3>₱ {{Details.payment}}.00</h3>
               </v-card-text>
               <Form></Form>
-
             </center>
           </v-col>
         </v-row>
@@ -57,7 +55,6 @@
     </v-container>
   </div>
 </template>
-
 
 <style>
 .results{
@@ -68,10 +65,10 @@
 </style>
 
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 import Form from "components/modules/Form.vue";
 import Map from "components/modules/Map.vue";
-import images from "components/modules/BhouseImages.vue";
+import Images from "components/modules/BhouseImages.vue";
 
 export default {
   props:{
@@ -88,14 +85,14 @@ export default {
       zIndex: 5
     };
   },
-  components: {Form,Map, images},
-  mounted(){
-    axios.get("http://localhost:3000/results").then(res => {
-      this.bHouseName = res.data,
-      this.bHouseAddress = res.data
-    }).catch(err => {
-      console.log(err)
-    })
-  }
+  components: {Form,Map, Images},
+  // mounted(){
+  //   axios.get("http://localhost:3000/results").then(res => {
+  //     this.bHouseName = res.data,
+  //     this.bHouseAddress = res.data
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
 };
 </script>

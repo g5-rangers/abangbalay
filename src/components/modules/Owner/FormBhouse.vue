@@ -49,7 +49,7 @@
                 <v-label>Freebies</v-label>
                 <v-radio label="Free water" value="Free water"></v-radio>
                 <v-radio label="Free electricity" value="Free electricity"></v-radio>
-                <v-radio label="Both" value="Both"></v-radio>
+                <v-radio label="Both" value="Both free water and electricity"></v-radio>
               </v-radio-group>
             </v-container>
           </div>

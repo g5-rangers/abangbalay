@@ -36,12 +36,9 @@ export default {
     }
   },
   mounted() {
-    // this.bhouseProperties = [];
-    axios.get("http://localhost:4000/owner/uploadMultiple")
+    axios.get("http://localhost:4000/owner/retrieveAll")
     .then(res => {
-      console.log(res.data + "before")
       this.bhouseProperties = res.data
-      console.log(this.bhouseProperties + " afert")
     }).catch(err => {
       console.log(err)
     })

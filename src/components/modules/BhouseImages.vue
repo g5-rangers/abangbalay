@@ -29,9 +29,7 @@
 <script>
 import carousel from "components/modules/Carousel.vue";
 export default {
-  props: {
-    images: { type: Array }
-  },
+  props: {images: Array },
   components: { carousel },
   data() {
     return {

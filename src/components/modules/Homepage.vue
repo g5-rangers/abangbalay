@@ -3,7 +3,7 @@
     <v-card id="card" flat class="mx-auto" max-width="600px">
       <center>
         <div>
-          <img :src="require('@/assets/images/MyFrontLogo.png')">
+          <img :src="require('@/assets/images/MyFrontLogo.png')" />
         </div>
         <v-card-text>
           <div>
@@ -16,7 +16,7 @@
             <v-autocomplete
               v-model="select"
               :loading="loading"
-              :items="items"
+              :items="items.map(item=>item.address)"
               :search-input.sync="search"
               cache-items
               class="mx-4"
@@ -33,7 +33,7 @@
         </v-col>
       </center>
     </v-card>
-    <Results v-for="i in 3 " :key="i" :Details="details" ></Results>
+    <Results v-for="(details ,i) in items " :key="i" :Details="details"></Results>
   </div>
 </template>
 
@@ -57,12 +57,13 @@
 
 <script>
 import Results from "components/modules/Results.vue";
+import axios from "axios";
 
 export default {
   data() {
     return {
       loading: false,
-      items: [],
+      items: [1,1],
       search: null,
       select: null,
       states: ["Talamban"]
@@ -80,16 +81,27 @@ export default {
     test() {
       alert(this.select);
     },
-    querySelections (v) {
-        this.loading = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.items = this.states.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loading = false
-        }, 500)
-      },
+    querySelections(val) {
+      console.log(val);
+      this.loading = true;
+      // Simulated ajax query
+      axios
+        .get(`http://localhost:4000/user/search/${val}`)
+        .then(res => {
+          this.loading = false;
+          this.items = res.data;
+        })
+        .catch(err => {
+          this.false;
+          console.log(err.response);
+        });
+      // setTimeout(() => {
+      //   this.items = this.states.filter(e => {
+      //     return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
+      //   })
+      //   this.loading = false
+      // }, 500)
+    }
   }
 };
 </script>
