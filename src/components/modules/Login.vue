@@ -99,9 +99,13 @@ export default {
         this.$store
           .dispatch("loginAsync", data)
           .then(() => {
-            console.log(this.$router)
             this.$router.push("/dashboard");
-            alert("You're now logged in.");
+            this.$swal.fire({
+              title: "Thank you for logging in",
+              width: 500,
+              padding: "3em",
+              backdrop: `rgba(0,0,123,0.4)`
+            });
           })
           .catch(err => console.log(err));
       }

@@ -98,8 +98,15 @@ export default {
         this.$store
           .dispatch("registerAsync", data)
           .then(
-            () => this.$router.push("/login"),
-            alert("Youre now registered ")
+            () =>
+              this.$swal.fire({
+                title: "Thank you for trusting us.",
+                text: "You are now registered!",
+                width: 500,
+                padding: "3em",
+                backdrop: `rgba(0,0,123,0.4)`
+              }),
+            this.$router.push("/login")
           )
           .catch(err => console.log(err));
       }

@@ -9,7 +9,7 @@
           <ImageUpload id="uploadicon"></ImageUpload>
         </div>-->
         <v-divider class="mx-4"></v-divider>
-        <br>
+        <br />
         <v-card-text>
           <div>
             <v-text-field outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
@@ -102,7 +102,12 @@ export default {
         this.occupants == null
       ) {
         this.dialog = true;
-        alert("empty");
+        this.$swal.fire({
+          title: "Please fill up the provided fields.",
+          width: 500,
+          padding: "3em",
+          backdrop: `rgba(255,0,0,0.4)`
+        });
       } else {
         this.loading = true;
         var details = {
@@ -118,7 +123,6 @@ export default {
           formData.append("img", this.imgs[i]);
         }
         formData.append("details", JSON.stringify(details));
-
         axios
           .post(`http://localhost:4000/owner/uploadMultiple`, formData)
           .then(res => {

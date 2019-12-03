@@ -33,8 +33,8 @@ export default new Vuex.Store({
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 axios.post("http://localhost:4000/user/login", user)
-                    .then(resp => {     
-                        console.log(resp.data.access_token)             
+                    .then(resp => {
+                        console.log(resp.data.access_token)
                         const token = resp.data.access_token
                         const user = resp.data.user
                         if (token) {
@@ -56,7 +56,7 @@ export default new Vuex.Store({
                 commit('auth_request')
                 axios.post("http://localhost:4000/user/register", user)
                     .then(resp => {
-                        const token = resp.data.token
+                        const token = resp.data.access_token
                         const user = resp.data.user
                         console.log(resp)
                         if (token) {
@@ -73,15 +73,15 @@ export default new Vuex.Store({
                         reject(err)
                     })
             })
+        },
+        logout({ commit }) {
+         return new Promise((resolve) => {
+             commit('logout')
+             localStorage.removeItem('jwt')
+             delete axios.defaults.headers.common['Authorization']
+             resolve()
+         })
         }
-        // logout({ commit }) {
-        //  return new Promise((resolve, reject) => {
-        //      commit('logout')
-        //      localStorage.removeItem('jwt')
-        //      delete axios.defaults.headers.common['Authorization']
-        //      resolve()
-        //  })
-        // }
     },
     getters: {
         isLoggedIn: state => !!state.token,
