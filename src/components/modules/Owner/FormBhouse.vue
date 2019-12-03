@@ -5,11 +5,8 @@
     </v-btn>
     <v-dialog v-model="dialog" max-width="350px">
       <v-card :loading="loading" max-width="350px">
-        <!-- <div id="container">
-          <ImageUpload id="uploadicon"></ImageUpload>
-        </div>-->
         <v-divider class="mx-4"></v-divider>
-        <br />
+        <br>
         <v-card-text>
           <div>
             <v-text-field outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
@@ -33,6 +30,7 @@
               dense
               v-model="monthlyPayAmount"
               type="number"
+              prefix="₱"
               label="Monthly payment"
             ></v-text-field>
             <v-file-input
@@ -51,6 +49,42 @@
                 <v-radio label="Free electricity" value="Free electricity"></v-radio>
                 <v-radio label="Both" value="Both free water and electricity"></v-radio>
               </v-radio-group>
+            </v-container>
+            <v-container fluid>
+              <v-label>Contact information</v-label>
+              <v-text-field
+                outlined
+                dense
+                type="number"
+                v-model="cp_number"
+                label="Cellphone no."
+                prepend-inner-icon="mdi-cellphone"
+              />
+              <v-text-field
+                outlined
+                dense
+                type="number"
+                v-model="landline_number"
+                label="Landline no."
+                prepend-inner-icon="mdi-call-split"
+              />
+              <v-text-field
+                outlined
+                dense
+                type="text"
+                v-model="fb_account"
+                label="Facebook account"
+                prepend-inner-icon="mdi-domain"
+              />
+              <v-text-field
+                outlined
+                dense
+                suffix="@gmail.com"
+                type="text"
+                v-model="email_add"
+                label="Email"
+                prepend-inner-icon="mdi-domain"
+              />
             </v-container>
           </div>
         </v-card-text>
@@ -89,7 +123,8 @@ export default {
       dialog: false,
       loading: false,
       items: ["2", "3", "4", "5", "6"],
-      imgs: []
+      imgs: [],
+      contact_number: null
     };
   },
   methods: {
@@ -115,7 +150,8 @@ export default {
           address: this.bhouseAddress,
           payment: this.monthlyPayAmount,
           freebies: this.freebies,
-          occupants: this.occupants
+          occupants: this.occupants,
+          creator: sessionStorage.getItem("Email")
         };
 
         let formData = new FormData();

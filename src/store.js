@@ -29,16 +29,17 @@ export default new Vuex.Store({
     },
     actions: {
         loginAsync({ commit }, user) {
-            console.log(user)
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 axios.post("http://localhost:4000/user/login", user)
                     .then(resp => {
-                        console.log(resp.data.access_token)
+                        console.log(resp)
+                        // console.log(resp.data.access_token)
                         const token = resp.data.access_token
                         const user = resp.data.user
                         if (token) {
                             localStorage.setItem('jwt', token)
+                            sessionStorage.setItem('Email', resp.data.user.email)
                         }
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
@@ -59,9 +60,6 @@ export default new Vuex.Store({
                         const token = resp.data.access_token
                         const user = resp.data.user
                         console.log(resp)
-                        if (token) {
-                            localStorage.setItem('jwt', token)
-                        }
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
                         resolve(resp)
@@ -78,6 +76,7 @@ export default new Vuex.Store({
          return new Promise((resolve) => {
              commit('logout')
              localStorage.removeItem('jwt')
+             sessionStorage.clear()
              delete axios.defaults.headers.common['Authorization']
              resolve()
          })

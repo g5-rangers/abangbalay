@@ -7,13 +7,10 @@
       <v-card-title style="color:orange ; font-size: 25px">My Account</v-card-title>
       <v-card-text>
         <div>
-          <v-text-field
+          <v-label
             v-model="email"
-            value="jeanilyntancinco@gmail.com"
-            label="Email address"
-            readonly
-          ></v-text-field>
-          <v-text-field v-model="password" value="**********" label="Password" readonly></v-text-field>
+          ></v-label>
+          <v-label v-model="password" >sdsd</v-label>
         </div>
       </v-card-text>
       <v-card-actions>
@@ -43,9 +40,10 @@ export default {
   }),
   mounted() {
     axios
-      .get("http://localhost:4000/user/register")
+      .post("http://localhost:4000/user/register")
       .then(res => {
-        (this.email = res.data), (this.password = res.data);
+        this.email = res.data.email
+        console.log(res.data)
       })
       .catch(err => {
         console.log(err);

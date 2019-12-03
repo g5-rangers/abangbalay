@@ -32,16 +32,23 @@ export default {
   methods: {
     updateDashboard(item) {
       this.bhouseProperties.push(item);
-      console.log(this.bhouseProperties)
+      console.log(this.bhouseProperties);
     }
   },
   mounted() {
-    axios.get("http://localhost:4000/owner/retrieveAll")
-    .then(res => {
-      this.bhouseProperties = res.data
-    }).catch(err => {
-      console.log(err)
-    })
+    axios
+      .get("http://localhost:4000/owner/retrieveAll")
+      .then(res => {
+        console.log(res.data);
+        for (var i = 0; i < res.data.length; i++) {
+          if (res.data[i].creator == sessionStorage.getItem("Email")) {
+            this.bhouseProperties = res.data;
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
