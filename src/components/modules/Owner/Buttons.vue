@@ -13,7 +13,7 @@
       <template v-slot:activator>
         <v-btn id="btn" v-model="fab" color="blue darken-2" dark fab>
           <v-icon v-if="fab">mdi-close</v-icon>
-          <v-icon v-else>mdi-account-circle</v-icon>
+          <v-icon v-else>mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
       <FormBhouse @uploaded="updateDashboard"></FormBhouse>

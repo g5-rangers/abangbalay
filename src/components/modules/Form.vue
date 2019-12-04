@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" >
+  <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="400px">
       <template v-slot:activator="{ on }">
         <v-btn color="success" dark v-on="on">
@@ -12,19 +12,18 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-            <div class="mt-12 text-left">
-               <v-icon>mdi-account</v-icon>Name: {{ contactForm.ownername }}
+          <div class="mt-12 text-left">
+            <v-icon>mdi-account</v-icon>
+            <h6>Name: {{ bhouseProperties.onwer_name }}</h6>
           </div>
           <div class="mt-12 text-left">
-                <v-icon>mdi-cellphone</v-icon>Contact #: {{ contactForm.number }} / {{contactForm.landline}}
+            <v-icon>mdi-cellphone</v-icon>
+            <h6>Contact #: {{ bhouseProperties.contact_number }}</h6>
           </div>
           <div class="mt-12 text-left">
-                <v-icon>mdi-email</v-icon>Email address: {{ contactForm.emailadd }}
+            <v-icon>mdi-email</v-icon>
+            <h6>Email address: {{ bhouseProperties.email_add }}</h6>
           </div>
-          <div class="mt-12 text-left">
-                <v-icon>mdi-domain</v-icon>Facebook Account: {{ contactForm.fbacc }}
-          </div>
-          
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -35,40 +34,17 @@
   </v-row>
 </template>
 
-<style scoped>
-
-
-</style>
-
 <script>
-
-import axios from 'axios';
-
 export default {
-
+  props: {
+    bhouseProperties: {
+      type: Object
+    }
+  },
   data() {
     return {
-      dialog: false,
-      contactForm: {
-        ownername: "Jeanilyn Tancinco",
-        fbacc: "JeanilynTan",
-        emailadd: "jeanilyntancinco@gmail.com",
-        number: "+639502352712",
-        landline: "723-2525"
-      }
+      dialog: false
     };
-  },
-  mounted(){
-    axios.get("http://localhost:3000/results").then(res => {
-      this.ownername = res.data,
-      this.fbacc = res.data,
-      this.emailadd = res.data,
-      this.number = res.data,
-      this.landline = res.data
-      this.dialog = false;
-    }).catch(err => {
-      console.log(err)
-    })
   }
 };
 </script>

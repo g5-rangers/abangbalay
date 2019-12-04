@@ -61,11 +61,9 @@
   margin-top: 2% !important;
 }
 
-
 </style>
 
 <script>
-// import axios from 'axios';
 import Form from "components/modules/Form.vue";
 import Map from "components/modules/Map.vue";
 import Images from "components/modules/BhouseImages.vue";
@@ -86,13 +84,5 @@ export default {
     };
   },
   components: {Form,Map, Images},
-  // mounted(){
-  //   axios.get("http://localhost:3000/results").then(res => {
-  //     this.bHouseName = res.data,
-  //     this.bHouseAddress = res.data
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
 };
 </script>

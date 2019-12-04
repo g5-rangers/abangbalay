@@ -6,20 +6,28 @@
     <v-dialog v-model="dialog" max-width="350px">
       <v-card :loading="loading" max-width="350px">
         <v-divider class="mx-4"></v-divider>
-        <br>
+        <br />
         <v-card-text>
           <div>
-            <v-text-field outlined dense v-model="bhouseName" label="Name of your boarding house"></v-text-field>
+            <v-text-field
+              outlined
+              dense
+              v-model="bhouseName"
+              prepend-inner-icon="mdi-home"
+              label="Name of your boarding house"
+            ></v-text-field>
             <v-text-field
               outlined
               dense
               v-model="bhouseAddress"
+              prepend-inner-icon="mdi-map-marker"
               label="Property address"
               hint="Ex. Rosillos St. Nasipit Rd. Talamban, Cebu"
             ></v-text-field>
             <v-select
               outlined
               dense
+              prepend-inner-icon="mdi-account-multiple"
               v-model="occupants"
               :items="items"
               label="Number of occupants"
@@ -39,7 +47,7 @@
               v-model="imgs"
               multiple
               label="Upload Images"
-              prepend-icon="mdi-camera"
+              prepend-inner-icon="mdi-camera"
               accept="/*image"
             ></v-file-input>
             <v-container fluid id="radios">
@@ -50,42 +58,37 @@
                 <v-radio label="Both" value="Both free water and electricity"></v-radio>
               </v-radio-group>
             </v-container>
-            <v-container fluid>
-              <v-label>Contact information</v-label>
+              <v-tooltip left color="info">
+                <template v-slot:activator="{ on }">
+                  <v-label v-on="on">Contact information</v-label>
+                </template>
+                <span>Please provide contact information</span>
+              </v-tooltip>
+              <v-text-field
+                outlined
+                dense
+                v-model="owner_name"
+                prepend-inner-icon="mdi-account"
+                label="Owner's name"
+                hint="Ex. James Reid"
+              ></v-text-field>
               <v-text-field
                 outlined
                 dense
                 type="number"
-                v-model="cp_number"
-                label="Cellphone no."
-                prepend-inner-icon="mdi-cellphone"
+                v-model="contact_number"
+                label="Landline or Cellphone no."
+                prepend-inner-icon="mdi-phone"
               />
               <v-text-field
                 outlined
                 dense
-                type="number"
-                v-model="landline_number"
-                label="Landline no."
-                prepend-inner-icon="mdi-call-split"
-              />
-              <v-text-field
-                outlined
-                dense
-                type="text"
-                v-model="fb_account"
-                label="Facebook account"
-                prepend-inner-icon="mdi-domain"
-              />
-              <v-text-field
-                outlined
-                dense
-                suffix="@gmail.com"
-                type="text"
+                type="email"
+                :rules="emailRules"
                 v-model="email_add"
-                label="Email"
-                prepend-inner-icon="mdi-domain"
+                label="Email address"
+                prepend-inner-icon="mdi-email"
               />
-            </v-container>
           </div>
         </v-card-text>
         <v-card-actions>
@@ -122,9 +125,12 @@ export default {
       occupants: null,
       dialog: false,
       loading: false,
-      items: ["2", "3", "4", "5", "6"],
+      items: ["1", "2", "3", "4", "5", "6"],
       imgs: [],
-      contact_number: null
+      owner_name: null,
+      contact_number: null,
+      email_add: null,
+      emailRules: [v => /.+@.+/.test(v) || "E-mail must be valid"]
     };
   },
   methods: {
@@ -134,7 +140,9 @@ export default {
         this.bhouseAddress == null ||
         this.monthlyPayAmount == null ||
         this.freebies == null ||
-        this.occupants == null
+        this.occupants == null ||
+        this.contact_number == null ||
+        this.email_add == null
       ) {
         this.dialog = true;
         this.$swal.fire({
@@ -151,7 +159,10 @@ export default {
           payment: this.monthlyPayAmount,
           freebies: this.freebies,
           occupants: this.occupants,
-          creator: sessionStorage.getItem("Email")
+          creator: sessionStorage.getItem("Email"),
+          owner_name: this.owner_name,
+          email: this.email_add,
+          contact: this.contact_number
         };
 
         let formData = new FormData();
@@ -172,6 +183,9 @@ export default {
             this.freebies = null;
             this.occupants = null;
             this.imgs = null;
+            this.contact_number = null;
+            this.email_add = null;
+            this.owner_name = null;
           })
           .catch(error => {
             console.error("file upload failed", error);

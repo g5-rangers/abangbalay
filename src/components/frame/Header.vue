@@ -53,7 +53,7 @@
           id="items"
           @click="redirect('/')"
           v-if="$route.name != 'dashboard' && $route.name !='account' "
-        >Home</v-btn>
+        ><v-icon>mdi-home</v-icon></v-btn>
         <v-divider
           class="mx-4"
           inset

@@ -26,7 +26,7 @@
               label="e.g Talamban"
               solo-inverted
             ></v-autocomplete>
-            <v-btn icon @click="test">
+            <v-btn icon >
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </v-toolbar>
@@ -66,7 +66,6 @@ export default {
       items: [1,1],
       search: null,
       select: null,
-      states: ["Talamban"]
     };
   },
   watch: {
@@ -78,9 +77,6 @@ export default {
     Results
   },
   methods: {
-    test() {
-      alert(this.select);
-    },
     querySelections(val) {
       console.log(val);
       this.loading = true;
@@ -95,12 +91,6 @@ export default {
           this.false;
           console.log(err.response);
         });
-      // setTimeout(() => {
-      //   this.items = this.states.filter(e => {
-      //     return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-      //   })
-      //   this.loading = false
-      // }, 500)
     }
   }
 };
