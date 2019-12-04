@@ -47,7 +47,7 @@
                 <br />
                 <h3>₱ {{Details.payment}}.00</h3>
               </v-card-text>
-              <Form></Form>
+              <Form :bhouseProperties="detail"></Form>
             </center>
           </v-col>
         </v-row>

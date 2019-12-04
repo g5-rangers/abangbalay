@@ -18,11 +18,11 @@
           </div>
           <div class="mt-12 text-left">
             <v-icon>mdi-cellphone</v-icon>
-            <h6>Contact #: {{ bhouseProperties.contact_number }}</h6>
+            <h6>Contact #: {{ bhouseProperties.contact }}</h6>
           </div>
           <div class="mt-12 text-left">
             <v-icon>mdi-email</v-icon>
-            <h6>Email address: {{ bhouseProperties.email_add }}</h6>
+            <h6>Email address: {{ bhouseProperties.email }}</h6>
           </div>
         </v-card-text>
         <v-card-actions>
