@@ -13,16 +13,13 @@
         <v-divider></v-divider>
         <v-card-text>
           <div class="mt-12 text-left">
-            <v-icon>mdi-account</v-icon>
-            <h6>Name: {{ bhouseProperties.onwer_name }}</h6>
+            <h6><v-icon color="orange darken-2">mdi-account</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.owner_name }}</h6>
           </div>
           <div class="mt-12 text-left">
-            <v-icon>mdi-cellphone</v-icon>
-            <h6>Contact #: {{ bhouseProperties.contact }}</h6>
+            <h6><v-icon color="orange darken-2">mdi-phone</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.contact }}</h6>
           </div>
           <div class="mt-12 text-left">
-            <v-icon>mdi-email</v-icon>
-            <h6>Email address: {{ bhouseProperties.email }}</h6>
+            <h6><v-icon color="orange darken-2">mdi-email</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.email }}</h6>
           </div>
         </v-card-text>
         <v-card-actions>
