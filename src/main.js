@@ -7,7 +7,10 @@ import BootstrapVue from 'bootstrap-vue'
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-// import Mapbox from 'mapbox-gl-vue';
+import VueMapbox from 'vue-mapbox';
+import Mapbox from 'mapbox-gl'
+
+Vue.use(VueMapbox, {mapboxgl: Mapbox})
 
 
 Vue.use(BootstrapVue);

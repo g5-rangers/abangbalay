@@ -39,15 +39,17 @@ export default new Vuex.Store({
                         const user = resp.data.user
                         if (token) {
                             localStorage.setItem('jwt', token)
-                            sessionStorage.setItem('Email', resp.data.user.email)
                         }
+                        sessionStorage.setItem('Email', resp.data.user.email)
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
                         resolve(resp)
                     })
                     .catch(err => {
+                        alert("Your account does not exist!")
                         commit('auth_error')
                         localStorage.removeItem('jwt')
+                        sessionStorage.clear()
                         reject(err.response)
                     })
             })

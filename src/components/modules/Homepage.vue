@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <v-card id="card" flat class="mx-auto" max-width="600px">
+    <v-card id="card" flat class="mx-auto" max-width="650px">
       <center>
         <div>
           <img :src="require('@/assets/images/MyFrontLogo.png')" />
@@ -12,23 +12,22 @@
           </div>
         </v-card-text>
         <v-col cols="12" sm="6">
-          <v-toolbar dark color="orange darken-2">
+          <v-toolbar dark color="orange darken-2" >
             <v-autocomplete
               v-model="select"
               :loading="loading"
               :items="items.map(item=>item.address)"
               :search-input.sync="search"
               cache-items
-              class="mx-4"
+              class="mx-2"
               flat
+              color="black"
               hide-no-data
               hide-details
               label="e.g Talamban"
+              prepend-inner-icon="mdi-magnify"
               solo-inverted
             ></v-autocomplete>
-            <v-btn icon >
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
           </v-toolbar>
         </v-col>
       </center>
@@ -65,7 +64,7 @@ export default {
       loading: false,
       items: [1,1],
       search: null,
-      select: null,
+      select: null
     };
   },
   watch: {
