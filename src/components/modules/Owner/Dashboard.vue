@@ -39,10 +39,12 @@ export default {
     axios
       .get("http://localhost:4000/owner/retrieveAll")
       .then(res => {
+        this.bhouseProperties = []
         console.log(res.data);
+        let x = sessionStorage.getItem("Email");
         for (var i = 0; i < res.data.length; i++) {
-          if (res.data[i].creator == sessionStorage.getItem("Email")) {
-            this.bhouseProperties = res.data;
+          if (res.data[i].creator === x) {
+            this.bhouseProperties.push(res.data[i]);
           }
         }
       })

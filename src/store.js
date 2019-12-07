@@ -34,7 +34,6 @@ export default new Vuex.Store({
                 axios.post("http://localhost:4000/user/login", user)
                     .then(resp => {
                         console.log(resp)
-                        // console.log(resp.data.access_token)
                         const token = resp.data.access_token
                         const user = resp.data.user
                         if (token) {
@@ -63,6 +62,28 @@ export default new Vuex.Store({
                         const user = resp.data.user
                         console.log(resp)
                         axios.defaults.headers.common['Authorization'] = token
+                        commit('auth_success', token, user)
+                        resolve(resp)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                        commit('auth_error', err)
+                        localStorage.removeItem('jwt')
+                        reject(err)
+                    })
+            })
+        },
+         updateAsync({ commit }, data) {
+            return new Promise((resolve, reject) => {
+                commit('auth_request')
+                console.log(data)
+                axios.put("http://localhost:4000/user/updateAccount", data)
+                    .then(resp => {
+                        const token = resp.data.access_token
+                        const user = resp.data
+                        console.log(resp)
+                        axios.defaults.headers.common['Authorization'] = token
+                        sessionStorage.setItem('Email', data.newemail)
                         commit('auth_success', token, user)
                         resolve(resp)
                     })

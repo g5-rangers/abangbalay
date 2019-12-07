@@ -1,12 +1,7 @@
 <template>
   <div class="map">
     <v-row left>
-      <v-dialog
-        v-model="dialog"
-        fullscreen
-        hide-overlay
-        transition="dialog-buttom-transition"
-      >
+      <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-buttom-transition">
         <template v-slot:activator="{ on }">
           <v-btn class="ma-2" color="orange darken-2" dark v-on="on">
             <v-icon dark left>mdi-pin</v-icon>Location
@@ -40,13 +35,12 @@
           }"
           :geolocate-control="{
             show: true,
-            position: 'top-right'
+            position: 'top-left'
 
             // url: 'https://api.locationiq.com/v1/autocomplete.php?key=b672e47293ef40&q=Nasipit, Talamban Cebu City',
             // coordinates: [10.3438277, 123.91102580699]
           }"
-        >
-        </mapbox>
+        ></mapbox>
       </v-dialog>
     </v-row>
   </div>
@@ -61,20 +55,21 @@ export default {
   components: { Mapbox },
   data() {
     return {
+      // geocodes: [],
       dialog: false,
       notifications: false,
-      sound: true,
+      sound: true
       // coordinates: [10.3438277, 123.91102580699]
     };
   },
+  // mounted(){
+  //   geocodes.push(coordinateFeature(2500, 2000));
+  // },
   created() {
+    
     // We need to set mapbox-gl library here in order to use it in template
     this.mapbox = MapBox;
-  },
-  methods: {
-
   }
-
 };
 </script>
 
