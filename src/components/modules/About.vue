@@ -1,142 +1,89 @@
 <template>
-  <div id="app">
-    <v-app id="inspire">
-      <v-layout row wrap>
-        <v-flex xs12>
-          <v-card elevation-2 class="custom-card-1">
-            <v-container fluid class="card-content">
-              <v-layout row wrap text-xs-center>
-                <v-flex xs12>
-                  <div>
-                    <v-img id="img" height="200px" src="@/assets/images/rangie.png"></v-img>
-                  </div>
-                  <br />
-                  <center>
-                    <p class="subheading xs12"><strong>Rangie Laurente</strong></p>
-                  </center>
-                  <hr />
-                  <center>
-                    <p><strong>Project Manager</strong></p>
-                    <v-text
-                      div="dev"
-                    >"Don't be pushed around by the fears in your mind.Be led by the dreams in your life."</v-text>
-                  </center>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-          <v-card elevation-2 class="custom-card-2">
-            <v-container fluid class="card-content">
-              <v-layout row wrap text-xs-center>
-                <v-flex xs12>
-                  <div>
-                    <v-img id="img" height="200px" src="@/assets/images/madam.png"></v-img>
-                  </div>
-                  <br />
-                  <center>
-                    <p class="subheading xs12"><strong>Jeanilyn Mendoza</strong></p>
-                  </center>
-                  <hr />
-                  <center>
-                    <p><strong>Back End Developer</strong></p>
-                    <v-text div="dev">"It's going to be hard but hard does not mean impossible."</v-text>
-                  </center>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-          <v-card elevation-2 class="custom-card-3">
-            <v-container fluid class="card-content">
-              <v-layout row wrap text-xs-center>
-                <v-flex xs12>
-                  <div>
-                    <v-img id="img" height="200px" src="@/assets/images/ismis.jpg"></v-img>
-                    <br />
-                  </div>
-                  <center>
-                    <p class="subheading xs12"><strong>Judilyn But-anon</strong></p>
-                  </center>
-                  <hr />
-                  <center>
-                    <p><strong>Front End Developer</strong></p>
-                    <v-text
-                      div="dev"
-                    >"Don't worry about failures, worry about the chances you miss when you don't even try."</v-text>
-                  </center>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-          <v-card elevation-2 class="custom-card-4">
-            <v-container fluid class="card-content">
-              <v-layout row wrap text-xs-center>
-                <v-flex xs12>
-                  <center>
-                    <div>
-                      <v-img id="img" height="200px" src="@/assets/images/jude.png"></v-img>
-                    </div>
-                  </center>
-                  <br />
-                  <center>
-                    <p class="subheading xs12"><strong>Ma.Judelyn Cabalhao</strong></p>
-                    <hr blue />
-                    <p><strong>Front End Developer</strong></p>
-                    <v-text
-                      div="dev"
-                    >"Make your life a masterpiece, imagine no limitations on what you can be, have or do."</v-text>
-                  </center>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card>
-        </v-flex>
-        <center>
-          <v-text class="title">
-            G5-Rangers
-            <br />We are the Passerelles Numeriques Scholars batch 2021.
-          </v-text>
-        </center>
-      </v-layout>
-      <div class="about">
-        <center>
-          <span class="misvis">Vision</span>
-          <br />
-          <span
-            class="mean"
-          >"To be the best and easiest web application who help migrants find boardinghouses."</span>
-          <br />
-          <br />
-          <span class="misvis">Mission</span>
-          <br />
-          <span class="mean">"To help people to find safe and decent to stay in."</span>
-        </center>
-      </div>
-    </v-app>
-  </div>
+  <v-container
+    class="grey lighten-5"
+    id="about"
+  >
+    <v-row
+      class="mb-6"
+      no-gutters
+    >
+      <v-col
+        v-for="(item,i) in items"
+        :key="i"
+        cols="3"
+      >
+        <v-card
+          id="img"
+          class="mx-auto"
+          max-width="400"
+        >
+          <b-img
+            fluid-grow
+            alt="Fluid-grow image"
+            rounded="circle"
+            lt="Circle image"
+            :src="item.src"
+            class="white--text align-end"
+            height="200px"
+          >
+
+          </b-img>
+          <v-card-text
+            class="text-center"
+            style="margin-top: 8px"
+          >
+           <h5>{{ item.name }}</h5>
+            <h6>{{ item.position }}</h6>
+            <div>{{item.motto}}</div>
+
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
-<style>
-.custom-card-1,
-.custom-card-2,
-.custom-card-3,
-.custom-card-4 {
-  width: 22%;
-  margin: 0 1%;
-  position: relative;
-  float: left;
-  top: 70px;
-  left: 50px;
-  height: 400px;
-}
-.title {
-  font-size: 3px;
-  position: absolute;
-  left: 30%;
-  top:70%;
- 
+<style scoped>
+#about,
+#img {
+  margin-top: 5% !important;
 }
 </style>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      items: [
+        {
+          src: require("@/assets/images/rangie.png"),
+          position: "Project Manager",
+          motto:
+            "Don't be pushed around by the fears in your mind.Be led by the dreams in your life.",
+          name: "Rangie Laurente"
+        },
+        {
+          src: require("@/assets/images/jude.png"),
+          position: "Front-End Developer",
+          motto: "It's going to be hard but hard does not mean impossible.",
+          name: "Ma. Judelyn Cabalhao"
+        },
+        {
+          src: require("@/assets/images/ismis.jpg"),
+          position: "Front-End Developer",
+          motto:
+            "Don't worry about failures, worry about the chances you miss when you don't even try.",
+          name: "Judilyn But-anon"
+        },
+        {
+          src: require("@/assets/images/madam.png"),
+          position: "Back-End Developer",
+          motto:
+            "Make your life a masterpiece, imagine no limitations on what you can be, have or do.",
+          name: "Jeanilyn Mendoza"
+        }
+      ]
+    };
+  }
+};
 </script>

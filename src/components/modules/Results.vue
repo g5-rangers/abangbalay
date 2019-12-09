@@ -70,7 +70,9 @@ import Images from "components/modules/BhouseImages.vue";
 
 export default {
   props:{
-    Details :Object
+    Details : { 
+      type: Object
+    }
   },
   data() {
     return {

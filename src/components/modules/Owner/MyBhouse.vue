@@ -15,6 +15,10 @@
         <h6>No. of occupants: {{bhouseProperties.occupants}}</h6>
         <h6>Monthly payment: {{bhouseProperties.payment}}</h6>
         <h6>Freebies: {{bhouseProperties.freebies}}</h6>
+        <v-card-title>Contact Details</v-card-title>
+          <h6>Name: {{bhouseProperties.owner_name}}</h6>
+          <h6>Contact no. :{{bhouseProperties.contact}}</h6>
+          <h6>Email address: {{bhouseProperties.email}}</h6>
       </section>
       
     </v-card-text>

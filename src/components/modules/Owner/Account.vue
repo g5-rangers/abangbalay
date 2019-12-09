@@ -148,10 +148,9 @@ export default {
             this.dialog = false;
             console.log(this.new_password);
             alert("Email and password updated");
-            // sessionStorage.setItem("Email",this.email);
             this.closeDialog();
             var data = {
-              email: sessionStorage.setItem("Email",this.email),
+              email: sessionStorage.getItem("Email"),
               newemail: this.email,
               newpassword: this.password
             };

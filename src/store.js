@@ -61,6 +61,9 @@ export default new Vuex.Store({
                         const token = resp.data.access_token
                         const user = resp.data.user
                         console.log(resp)
+                        if (token) {
+                            localStorage.setItem('jwt', token)
+                        }
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
                         resolve(resp)
@@ -79,9 +82,13 @@ export default new Vuex.Store({
                 console.log(data)
                 axios.put("http://localhost:4000/user/updateAccount", data)
                     .then(resp => {
+                        console.log(resp.data.access_token) // undefined 
                         const token = resp.data.access_token
                         const user = resp.data
-                        console.log(resp)
+                        if (token) {
+                            localStorage.setItem('jwt', token)
+                        }
+                        console.log(resp.data)
                         axios.defaults.headers.common['Authorization'] = token
                         sessionStorage.setItem('Email', data.newemail)
                         commit('auth_success', token, user)
