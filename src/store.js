@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -38,17 +39,14 @@ export default new Vuex.Store({
                         const user = resp.data.user
                         if (token) {
                             localStorage.setItem('jwt', token)
+                            sessionStorage.setItem('Email', resp.data.user.email)
                         }
-                        sessionStorage.setItem('Email', resp.data.user.email)
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
                         resolve(resp)
                     })
                     .catch(err => {
-                        alert("Your account does not exist!")
                         commit('auth_error')
-                        localStorage.removeItem('jwt')
-                        sessionStorage.clear()
                         reject(err.response)
                     })
             })
@@ -61,9 +59,6 @@ export default new Vuex.Store({
                         const token = resp.data.access_token
                         const user = resp.data.user
                         console.log(resp)
-                        if (token) {
-                            localStorage.setItem('jwt', token)
-                        }
                         axios.defaults.headers.common['Authorization'] = token
                         commit('auth_success', token, user)
                         resolve(resp)
@@ -71,33 +66,27 @@ export default new Vuex.Store({
                     .catch(err => {
                         console.log(err)
                         commit('auth_error', err)
-                        localStorage.removeItem('jwt')
                         reject(err)
                     })
             })
         },
-         updateAsync({ commit }, data) {
+        updateAsync({ commit }, data) {
             return new Promise((resolve, reject) => {
                 commit('auth_request')
                 console.log(data)
                 axios.put("http://localhost:4000/user/updateAccount", data)
                     .then(resp => {
-                        console.log(resp.data.access_token) // undefined 
-                        const token = resp.data.access_token
+                        const token = localStorage.getItem('jwt')
                         const user = resp.data
-                        if (token) {
-                            localStorage.setItem('jwt', token)
-                        }
-                        console.log(resp.data)
+                        console.log(resp)
                         axios.defaults.headers.common['Authorization'] = token
-                        sessionStorage.setItem('Email', data.newemail)
+                        sessionStorage.setItem('Email', resp.data.email)
                         commit('auth_success', token, user)
                         resolve(resp)
                     })
                     .catch(err => {
                         console.log(err)
                         commit('auth_error', err)
-                        localStorage.removeItem('jwt')
                         reject(err)
                     })
             })

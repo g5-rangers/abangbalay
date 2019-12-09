@@ -118,54 +118,62 @@ export default {
   },
   methods: {
     validate() {
-      console.log(this.new_email);
+      var data;
       if (this.$refs.form.validate()) {
         var emailValid = /.+@.+\..+/;
         var valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#/$%/^&/*])(?=.{8,})/;
 
-        if (this.new_emai) {
+        if (this.new_email) {
           if (emailValid.test(this.new_email)) {
             if (this.new_password) {
               if (valid.test(this.new_password)) {
+                this.email = this.new_email;
                 this.password = this.new_password;
                 console.log(this.new_password);
+                console.log(this.new_email);
+                alert("Email and password updated");
+                this.dialog = false;
+                this.closeDialog();
+                data = {
+                  email: sessionStorage.getItem("Email"),
+                  newemail: this.email,
+                  newpassword: this.password
+                };
+                this.$store.dispatch("updateAsync", data);
               } else {
                 alert("invalid password");
               }
             } else {
+              this.email = this.new_email;
               this.password = this.old_password;
+              alert("Email Updated!")
+              this.dialog = false;
+              this.closeDialog();
+              data = {
+                email: sessionStorage.getItem("Email"),
+                newemail: this.email,
+                newpassword: this.password
+              };
+              this.$store.dispatch("updateAsync", data);
             }
           } else {
-            alert("invalid");
-          }
-        } else if (this.new_password && this.new_email) {
-          if (
-            valid.test(this.new_password) &&
-            emailValid.test(this.new_email)
-          ) {
-            this.email = this.new_email;
-            this.password = this.new_password;
-            this.dialog = false;
-            console.log(this.new_password);
-            alert("Email and password updated");
-            this.closeDialog();
-            var data = {
-              email: sessionStorage.getItem("Email"),
-              newemail: this.email,
-              newpassword: this.password
-            };
-            this.$store.dispatch("updateAsync", data);
+            alert("invalid emial!");
           }
         } else {
           this.email = this.new_email;
+          this.password = this.old_password;
           console.log(this.old_password);
           this.closeDialog();
 
           this.dialog = false;
+          data = {
+            email: sessionStorage.getItem("Email"),
+            newemail: this.email,
+            newpassword: this.password
+          };
+          this.$store.dispatch("updateAsync", data);
           alert("Data update");
         }
-      } else {
-        alert("Input old password");
       }
     },
     closeDialog() {

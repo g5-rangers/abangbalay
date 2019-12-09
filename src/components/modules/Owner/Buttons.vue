@@ -11,30 +11,23 @@
       :transition="transition"
     >
       <template v-slot:activator>
-        <v-btn id="btn" v-model="fab" color="blue darken-2" dark fab>
+        <v-btn v-model="fab" color="blue darken-2" dark fab>
           <v-icon v-if="fab">mdi-close</v-icon>
           <v-icon v-else>mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
       <FormBhouse @uploaded="updateDashboard"></FormBhouse>
-      <v-btn fab dark small color="green">
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-      <v-btn fab dark small color="red">
-        <v-icon>mdi-delete</v-icon>
-      </v-btn>
     </v-speed-dial>
   </div>
 </template>
+
 <style>
 /* This is for documentation purposes and will not be needed in your application */
 #create .v-speed-dial {
   position: absolute !important;
 }
 
-#btn {
- margin-top: 100% !important;
-}
+
 </style>
 
 <script>

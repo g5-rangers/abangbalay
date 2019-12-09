@@ -15,19 +15,6 @@
                 <Map></Map>
               </v-card-actions>
             </v-img>
-            <v-overlay :absolute="absolute" :opacity="opacity" :value="overlay" :z-index="zIndex">
-              <v-btn id="backbtn" color="orange darken-2" @click="overlay = false">
-                <v-icon small>mdi-arrow-left</v-icon>
-              </v-btn>
-              <v-card>
-                <v-img
-                  id="gmap"
-                  class="white--text align-end"
-                  height="400px"
-                  src="https://i2.wp.com/www.knowcebu.com/wp-content/uploads/2016/11/tst-25.png?resize=800%2C614"
-                ></v-img>
-              </v-card>
-            </v-overlay>
           </v-col>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-col cols="6" sm="4">
@@ -60,6 +47,7 @@
 .results{
   margin-top: 2% !important;
 }
+
 
 </style>
 

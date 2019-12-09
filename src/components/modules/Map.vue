@@ -2,7 +2,7 @@
   <div class="map">
     <v-row left>
       <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-buttom-transition">
-        <template v-slot:activator="{ on }">
+        <template v-slot:activator="{ on }" >
           <v-btn class="ma-2" color="orange darken-2" dark v-on="on">
             <v-icon dark left>mdi-pin</v-icon>Location
           </v-btn>
@@ -14,9 +14,7 @@
             <v-btn
               icon
               dark
-              @click="
-                dialog = false;
-                transition = 'dialog-top-transition';
+              @click="dialog = false; transition = 'dialog-top-transition';
               "
             >
               <v-icon>mdi-close</v-icon>
@@ -45,6 +43,11 @@
     </v-row>
   </div>
 </template>
+
+<style>
+
+
+</style>
 
 <script>
 import Mapbox from "mapbox-gl-vue";
