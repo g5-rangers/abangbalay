@@ -1,4 +1,8 @@
 <template>
+<div class="about">
+  <center>
+    <h2 style="margin-top: 4%">The Team</h2>
+  </center>
   <v-container
     class="grey lighten-5"
     id="about"
@@ -41,6 +45,7 @@
       </v-col>
     </v-row>
   </v-container>
+  </div>
 </template>
 
 <style scoped>

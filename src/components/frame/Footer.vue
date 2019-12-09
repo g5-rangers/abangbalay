@@ -1,5 +1,4 @@
 <template>
-<div class="Footer">
   <v-footer
     dark
     padless
@@ -27,38 +26,8 @@
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-        <strong><img :src="require('@/assets/images/MyFrontLogo.png')"></strong><br>
-        <!-- <br>{{ new Date().getFullYear() }}  -->
-
+        {{ new Date().getFullYear() }} — <strong>abangbalay</strong>
       </v-card-text>
     </v-card>
   </v-footer>
-</div>
 </template>
-
-<script>
-  export default {
-    data: () => ({
-      icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram',
-      ],
-    }),
-  }
-</script>
-
-<style scoped>
-
-.Footer{
-  margin-top: 30% !important;
-}
-
-img{
-  width: 100px !important;
-}
-
-</style>
-
