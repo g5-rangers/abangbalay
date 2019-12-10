@@ -37,8 +37,9 @@ export default {
         name: 'account',
         component: resolve => require(['components/modules/Owner/Account.vue'], resolve),
         meta: {
-            tokenRequired: false
+            tokenRequired: true
         }
     }
+    
     ]
 }

@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <v-card id="card" flat class="mx-auto" max-width="600px">
+    <v-card id="card" flat class="mx-auto" max-width="650px">
       <center>
         <div>
           <img :src="require('@/assets/images/MyFrontLogo.png')">
@@ -12,33 +12,34 @@
           </div>
         </v-card-text>
         <v-col cols="12" sm="6">
-          <v-toolbar dark color="orange darken-2">
-            <v-autocomplete
-              v-model="select"
-              :loading="loading"
-              :items="items"
-              :search-input.sync="search"
-              cache-items
-              class="mx-4"
-              flat
-              hide-no-data
-              hide-details
-              label="e.g Talamban"
-              solo-inverted
-            ></v-autocomplete>
-            <v-btn icon @click="test">
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-          </v-toolbar>
+          <v-text-field
+            color="white"
+            background-color="orange darken-2"
+            v-model="select"
+            class="mx-2"
+            flat
+            label="e.g Talamban"
+            prepend-inner-icon="mdi-magnify"
+            solo-inverted
+            @keypress.enter="querySelections"
+          />
         </v-col>
       </center>
     </v-card>
-
-    <Results v-for="i in 3 " :key="i" :Details="details"></Results>
+    <div v-if="items.length">
+      <Results v-for="(details ,i) in items " :key="i" :Details="details"></Results>
+    </div>
+    <empty :Details="details" v-else></empty>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64" color="orange darken-2"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
 <style>
+.v-progress-circular {
+  margin: 1rem;
+}
 #backbtn {
   margin-bottom: 2% !important;
   margin-left: 90% !important;
@@ -46,7 +47,6 @@
 #img {
   margin-left: 8% !important;
   margin-top: 2% !important;
-  cursor: pointer !important;
 }
 
 #card {
@@ -58,39 +58,46 @@
 
 <script>
 import Results from "components/modules/Results.vue";
+import empty from "components/modules/Empty.vue";
+import axios from "axios";
 
 export default {
   data() {
     return {
-      loading: false,
-      items: [],
-      search: null,
-      select: null,
-      states: ["Talamban"]
+      overlay: false,
+      items: [1, 1],
+      emp: [1, 1],
+      select: null
     };
   },
-  watch: {
-    search(val) {
-      val && val !== this.select && this.querySelections(val);
-    }
-  },
   components: {
-    Results
+    Results,
+    empty
   },
+
   methods: {
-    test() {
-      alert(this.select);
-    },
-    querySelections (v) {
-        this.loading = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.items = this.states.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loading = false
-        }, 500)
-      },
+    querySelections() {
+      this.overlay = true;
+      // Simulated ajax query
+      axios
+        .get(`http://localhost:4000/user/search/${this.select}`)
+        .then(res => {
+          // this.overlay = false;
+          if (res.data == null) {
+            this.emp = res.data;
+          }
+          setTimeout(() => {
+            this.overlay = false;
+          }, 1000);
+          this.items = res.data;
+        })
+        .catch(err => {
+          setTimeout(() => {
+            this.overlay = false;
+          }, 500);
+          console.log(err.response);
+        });
+    }
   }
 };
 </script>

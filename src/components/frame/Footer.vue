@@ -1,64 +1,36 @@
 <template>
-<div class="Footer">
+<div class="footer">
   <v-footer
     dark
     padless
+    absolute
   >
     <v-card
       flat
+      width="100%"
       tile
       class="indigo lighten-1 white--text text-center"
     >
-      <v-card-text>
-        <v-btn
-          v-for="icon in icons"
-          :key="icon"
-          class="mx-4 white--text"
-          icon
-        >
-          <v-icon size="24px">{{ icon }}</v-icon>
-        </v-btn>
-      </v-card-text>
-
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-      </v-card-text>
-
-      <v-divider></v-divider>
-
       <v-card-text class="white--text">
-        <strong><img :src="require('@/assets/images/MyFrontLogo.png')"></strong><br>
-        <!-- <br>{{ new Date().getFullYear() }}  -->
-
+        {{ new Date().getFullYear() }} — <strong>abangbalay</strong>
       </v-card-text>
     </v-card>
   </v-footer>
 </div>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      icons: [
-        'fab fa-facebook',
-        'fab fa-twitter',
-        'fab fa-google-plus',
-        'fab fa-linkedin',
-        'fab fa-instagram',
-      ],
-    }),
-  }
-</script>
+<style>
 
-<style scoped>
-
-.Footer{
-  margin-top: 30% !important;
-}
-
-img{
-  width: 100px !important;
+.footer{
+  margin-top: 15% !important;
 }
 
 </style>
 
+
+<script>
+
+export default {
+  
+}
+</script>

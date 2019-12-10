@@ -1,7 +1,16 @@
 // import AUTH from 'services/auth'
+import store from '../store.js'
 
 let beforeEnter = (to, from, next) => {
-    next();
+    if(to.meta.tokenRequired === true){
+        if(store.getters.isLoggedIn){
+            next()
+        }else{
+            next({ path: '/login'})
+        }
+    }else{
+        next()
+    }
 }
 
 var devRoutes = []

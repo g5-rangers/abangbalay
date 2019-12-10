@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" >
+  <v-row justify="center">
     <v-dialog v-model="dialog" persistent max-width="400px">
       <template v-slot:activator="{ on }">
         <v-btn color="success" dark v-on="on">
@@ -12,19 +12,15 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text>
-            <div class="mt-12 text-left">
-               <v-icon>mdi-account</v-icon>Name: {{ contactForm.ownername }}
+          <div class="mt-12 text-left">
+            <h6><v-icon color="orange darken-2">mdi-account</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.owner_name }}</h6>
           </div>
           <div class="mt-12 text-left">
-                <v-icon>mdi-cellphone</v-icon>Contact #: {{ contactForm.number }} / {{contactForm.landline}}
+            <h6><v-icon color="orange darken-2">mdi-phone</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.contact }}</h6>
           </div>
           <div class="mt-12 text-left">
-                <v-icon>mdi-email</v-icon>Email address: {{ contactForm.emailadd }}
+            <h6><v-icon color="orange darken-2">mdi-email</v-icon>&nbsp;&nbsp;&nbsp;&nbsp;{{ bhouseProperties.email }}</h6>
           </div>
-          <div class="mt-12 text-left">
-                <v-icon>mdi-domain</v-icon>Facebook Account: {{ contactForm.fbacc }}
-          </div>
-          
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -33,49 +29,19 @@
       </v-card>
     </v-dialog>
   </v-row>
-  <!-- <div>
-  <b-button v-b-modal.modal-center>Select</b-button>
-
-  <b-modal id="modal-center" centered title="BootstrapVue">
-    <p class="my-4">Vertically centered modal!</p>
-  </b-modal>
-  </div>-->
 </template>
 
-<style scoped>
-
-
-</style>
-
 <script>
-
-import axios from 'axios';
-
 export default {
-
+  props: {
+    bhouseProperties: {
+      type: Object
+    }
+  },
   data() {
     return {
-      dialog: false,
-      contactForm: {
-        ownername: "Jeanilyn Tancinco",
-        fbacc: "JeanilynTan",
-        emailadd: "jeanilyntancinco@gmail.com",
-        number: "+639502352712",
-        landline: "723-2525"
-      }
+      dialog: false
     };
-  },
-  mounted(){
-    axios.get("http://localhost:3000/results").then(res => {
-      this.ownername = res.data,
-      this.fbacc = res.data,
-      this.emailadd = res.data,
-      this.number = res.data,
-      this.landline = res.data
-      this.dialog = false;
-    }).catch(err => {
-      console.log(err)
-    })
   }
 };
 </script>
