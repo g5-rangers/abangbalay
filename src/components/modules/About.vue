@@ -3,10 +3,7 @@
   <center>
     <h2 style="margin-top: 4%">The Team</h2>
   </center>
-  <v-container
-    class="grey lighten-5"
-    id="about"
-  >
+
     <v-row
       class="mb-6"
       no-gutters
@@ -19,7 +16,7 @@
         <v-card
           id="img"
           class="mx-auto"
-          max-width="400"
+          max-width="250"
         >
           <b-img
             fluid-grow
@@ -28,7 +25,7 @@
             lt="Circle image"
             :src="item.src"
             class="white--text align-end"
-            height="200px"
+            height="150px"
           >
 
           </b-img>
@@ -44,7 +41,6 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
   </div>
 </template>
 

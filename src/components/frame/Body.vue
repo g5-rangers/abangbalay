@@ -2,7 +2,7 @@
   <div>
     <transition-group>    
       <router-view :key="0" ></router-view>
-      <Footer :key="1"></Footer>
+      <!-- <Footer :key="1"></Footer> -->
     </transition-group>
     
   </div>
@@ -16,12 +16,12 @@
 
 <script>
 
-import Footer from "components/frame/Footer.vue";
+// import Footer from "components/frame/Footer.vue";
 
 export default {
   name: "appbody",
-  components: {
-    Footer
-  }
+  // components: {
+  //   // Footer
+  // }
 };
 </script>

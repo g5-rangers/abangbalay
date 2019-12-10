@@ -46,6 +46,7 @@
 <style>
 .results{
   margin-top: 2% !important;
+  margin-bottom: 5% !important;
 }
 
 
